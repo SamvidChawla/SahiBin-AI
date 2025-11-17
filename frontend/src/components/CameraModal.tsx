@@ -3,6 +3,7 @@ import { X, Camera, RotateCcw, Zap, CheckCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'motion/react';
 import { detectWasteType, getCompleteDetectionResult } from '../utils/wasteDetection';
+import { detectWaste } from '../utils/api';
 
 interface CameraModalProps {
   onClose: () => void;
@@ -16,6 +17,7 @@ export function CameraModal({ onClose, onCapture }: CameraModalProps) {
   const [error, setError] = useState<string>('');
   const [countdown, setCountdown] = useState<number | null>(null);
   const [isCapturing, setIsCapturing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     startCamera();
@@ -24,6 +26,7 @@ export function CameraModal({ onClose, onCapture }: CameraModalProps) {
         stream.getTracks().forEach(track => track.stop());
       }
     };
+    
   }, []);
 
   const startCamera = async () => {
@@ -67,6 +70,12 @@ export function CameraModal({ onClose, onCapture }: CameraModalProps) {
     }
   };
 
+  const dataURLtoFile = async (dataUrl: string, filename = `capture_${Date.now()}.jpg`) => {
+  const res = await fetch(dataUrl);
+  const blob = await res.blob();
+  return new File([blob], filename, { type: blob.type || 'image/jpeg' });
+};
+
   const capturePhoto = () => {
     setIsCapturing(true);
     setCountdown(3);
@@ -105,6 +114,30 @@ export function CameraModal({ onClose, onCapture }: CameraModalProps) {
             detection.itemName,
             imageData
           );
+                // --- START: optional backend detection (keeps original `completeResult`) ---
+      setIsLoading(true);
+      try {
+        // convert the captured base64 image to File for backend upload
+        const file = await dataURLtoFile(imageData);
+
+        // call your FastAPI endpoint
+        const backendRes = await detectWaste(file);
+
+        // if backend returned a meaningful response, merge/overwrite sensible fields
+        if (backendRes && backendRes.success !== false) {
+          completeResult.wasteType = backendRes.waste_type || backendRes.wasteType || completeResult.wasteType;
+          completeResult.confidence = backendRes.confidence ?? completeResult.confidence;
+          completeResult.itemName = backendRes.item_name || backendRes.itemName || completeResult.itemName;
+          completeResult.recyclable = backendRes.recyclable ?? completeResult.recyclable;
+          completeResult.instructions = backendRes.instructions ?? completeResult.instructions;
+          completeResult.backendRaw = backendRes;  // optional debug info
+        }
+      } catch (err) {
+        console.warn("Backend detection failed or unreachable:", err);
+      } finally {
+        setIsLoading(false);
+      }
+      // --- END: optional backend detection ---
           
           onCapture(completeResult);
           if (stream) {
