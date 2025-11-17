@@ -24,6 +24,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Initialize YOLO (Fix for PyTorch safe loading)
+try:
+    import torch
+    # import the DetectionModel class used by ultralytics checkpoints
+    from ultralytics.nn.tasks import DetectionModel
+
+    # add DetectionModel to torch's safe globals so torch.load(..., weights_only=True) can accept it
+    try:
+        torch.serialization.add_safe_globals([DetectionModel])
+    except Exception:
+        # In some torch versions the API may differ; ignore if unable to add
+        pass
+except Exception as e:
+    # If torch or DetectionModel import fails, print a warning and continue.
+    # We still attempt to initialize YOLO below; if ultralytics uses torch under the hood
+    # it may surface a clearer error then.
+    print(f"⚠️ Torch/DetectionModel import warning: {e}")
+
 # Initialize services
 try:
     model = YOLO('models/best.pt')
