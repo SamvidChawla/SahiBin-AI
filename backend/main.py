@@ -24,31 +24,33 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize YOLO (Fix for PyTorch safe loading)
-try:
-    import torch
-    # import the DetectionModel class used by ultralytics checkpoints
-    from ultralytics.nn.tasks import DetectionModel
-
-    # add DetectionModel to torch's safe globals so torch.load(..., weights_only=True) can accept it
-    try:
-        torch.serialization.add_safe_globals([DetectionModel])
-    except Exception:
-        # In some torch versions the API may differ; ignore if unable to add
-        pass
-except Exception as e:
-    # If torch or DetectionModel import fails, print a warning and continue.
-    # We still attempt to initialize YOLO below; if ultralytics uses torch under the hood
-    # it may surface a clearer error then.
-    print(f"⚠️ Torch/DetectionModel import warning: {e}")
-
-# Initialize YOLO model with debug logging
+# Initialize YOLO model with PyTorch 2.6 compatibility fix
 try:
     print("=" * 50)
     print("🔍 DEBUG: Starting model loading process")
     print(f"📂 Current working directory: {os.getcwd()}")
     print(f"📂 Files in current directory: {os.listdir('.')}")
     print("=" * 50)
+    
+    import torch
+    from ultralytics.nn.tasks import DetectionModel
+    
+    # Add all necessary classes to safe globals for PyTorch 2.6+
+    safe_classes = [
+        DetectionModel,
+        torch.nn.modules.container.Sequential,
+        torch.nn.modules.conv.Conv2d,
+        torch.nn.modules.batchnorm.BatchNorm2d,
+        torch.nn.modules.activation.SiLU,
+        torch.nn.modules.pooling.MaxPool2d,
+    ]
+    
+    try:
+        for cls in safe_classes:
+            torch.serialization.add_safe_globals([cls])
+        print("✅ Added safe globals for PyTorch")
+    except Exception as e:
+        print(f"⚠️ Could not add safe globals: {e}")
     
     # Check if models folder exists
     if os.path.exists('models'):
@@ -64,11 +66,24 @@ try:
         print(f"📏 File size: {file_size / (1024*1024):.2f} MB")
         
         print("🔄 Attempting to load YOLO model...")
-        model = YOLO('models/best.pt')
-        print("✅ YOLO model loaded successfully")
+        
+        # Monkey patch torch.load to use weights_only=False
+        original_torch_load = torch.load
+        def patched_load(*args, **kwargs):
+            kwargs['weights_only'] = False
+            return original_torch_load(*args, **kwargs)
+        
+        torch.load = patched_load
+        
+        try:
+            model = YOLO('models/best.pt')
+            print("✅ YOLO model loaded successfully")
+        finally:
+            # Restore original torch.load
+            torch.load = original_torch_load
+            
     else:
         print("❌ models/best.pt NOT FOUND")
-        # Try alternate path
         if os.path.exists('best.pt'):
             print("✅ Found best.pt in root")
             model = YOLO('best.pt')
@@ -84,7 +99,6 @@ except Exception as e:
     print(f"Error message: {e}")
     print("=" * 50)
     
-    # Print full traceback
     import traceback
     traceback.print_exc()
     
