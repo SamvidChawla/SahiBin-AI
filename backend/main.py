@@ -42,12 +42,52 @@ except Exception as e:
     # it may surface a clearer error then.
     print(f"⚠️ Torch/DetectionModel import warning: {e}")
 
-# Initialize services
+# Initialize YOLO model with debug logging
 try:
-    model = YOLO('models/best.pt')
-    print("✅ YOLO model loaded successfully")
+    print("=" * 50)
+    print("🔍 DEBUG: Starting model loading process")
+    print(f"📂 Current working directory: {os.getcwd()}")
+    print(f"📂 Files in current directory: {os.listdir('.')}")
+    print("=" * 50)
+    
+    # Check if models folder exists
+    if os.path.exists('models'):
+        print("✅ 'models' folder exists")
+        print(f"📂 Files in models/: {os.listdir('models')}")
+    else:
+        print("❌ 'models' folder does NOT exist")
+    
+    # Check if best.pt exists
+    if os.path.exists('models/best.pt'):
+        print("✅ Found models/best.pt")
+        file_size = os.path.getsize('models/best.pt')
+        print(f"📏 File size: {file_size / (1024*1024):.2f} MB")
+        
+        print("🔄 Attempting to load YOLO model...")
+        model = YOLO('models/best.pt')
+        print("✅ YOLO model loaded successfully")
+    else:
+        print("❌ models/best.pt NOT FOUND")
+        # Try alternate path
+        if os.path.exists('best.pt'):
+            print("✅ Found best.pt in root")
+            model = YOLO('best.pt')
+            print("✅ YOLO model loaded from root")
+        else:
+            print("❌ best.pt not found anywhere")
+            model = None
+        
 except Exception as e:
-    print(f"❌ Error loading YOLO model: {e}")
+    print("=" * 50)
+    print(f"❌ EXCEPTION while loading YOLO model:")
+    print(f"Error type: {type(e).__name__}")
+    print(f"Error message: {e}")
+    print("=" * 50)
+    
+    # Print full traceback
+    import traceback
+    traceback.print_exc()
+    
     model = None
 
 try:
