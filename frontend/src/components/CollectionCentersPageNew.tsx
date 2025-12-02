@@ -143,7 +143,7 @@ export function CollectionCentersPageNew() {
                   <motion.div key={center.id} id={`center-${center.id}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 + index * 0.05 }} className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-all cursor-pointer" onClick={() => console.log('Center card clicked:', center)}>
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">{center.id}</div>
+                        <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">{index + 1}</div>
                         <h5 className="text-[14px] text-slate-900 dark:text-white font-medium">{center.name}</h5>
                       </div>
                       <div className="flex items-center gap-1 text-amber-500">
