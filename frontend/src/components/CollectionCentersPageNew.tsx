@@ -155,12 +155,12 @@ export function CollectionCentersPageNew() {
                     <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 mb-3">
                       <div className="flex items-center gap-1.5">
                         <Navigation className="w-3 h-3" />
-                        <span className="text-emerald-600 dark:text-emerald-400 font-medium">{center.distance}</span>
+                        <span className="text-emerald-600 dark:text-emerald-400 font-medium">{center.distance} km</span>
                       </div>
 
                       <div className="flex items-center gap-1.5">
                         <Clock className="w-3 h-3" />
-                        <span className="truncate">{center.hours?.split(",")[0] || "Hours not available"} km</span>
+                        <span className="truncate">{center.hours?.split(",")[0] || "Hours not available"}</span>
                       </div>
                     </div>
 
