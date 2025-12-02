@@ -5,9 +5,11 @@ import { wasteCategories } from '../utils/wasteCategories';
 
 interface DisposalGuideTabPageProps {
   wasteType: string;
+  onNavigateTab: (tabId: string) => void; // e.g., 'centers', 'detection'
+  onScrollToSection?: (sectionId: string) => void;
 }
 
-export function DisposalGuideTabPage({ wasteType }: DisposalGuideTabPageProps) {
+export function DisposalGuideTabPage({ wasteType , onNavigateTab, onScrollToSection }: DisposalGuideTabPageProps) {
   const categoryData = wasteCategories[wasteType];
   
   if (!categoryData) {
@@ -166,6 +168,7 @@ export function DisposalGuideTabPage({ wasteType }: DisposalGuideTabPageProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[16px] p-6 hover:shadow-lg transition-all cursor-pointer group"
+            onClick={() => onNavigateTab('centers')}
           >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-3">
@@ -203,7 +206,7 @@ export function DisposalGuideTabPage({ wasteType }: DisposalGuideTabPageProps) {
                     Set Reminder
                   </h4>
                   <p className="text-[14px] text-slate-600 dark:text-slate-400">
-                    Get notified on collection days
+                    Coming Soon
                   </p>
                 </div>
               </div>
@@ -227,7 +230,7 @@ export function DisposalGuideTabPage({ wasteType }: DisposalGuideTabPageProps) {
 
           <div className="space-y-3">
             <a
-              href="#"
+              onClick={() => onScrollToSection?.('dashboard-section')}
               className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors group"
             >
               <FileText className="w-5 h-5 text-sky-600 dark:text-sky-400" />
@@ -240,7 +243,7 @@ export function DisposalGuideTabPage({ wasteType }: DisposalGuideTabPageProps) {
             </a>
 
             <a
-              href="#"
+              onClick={() => onNavigateTab('centers')}
               className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors group"
             >
               <Recycle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
@@ -253,7 +256,7 @@ export function DisposalGuideTabPage({ wasteType }: DisposalGuideTabPageProps) {
             </a>
 
             <a
-              href="#"
+              onClick={() => onNavigateTab('detection')}
               className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors group"
             >
               <Calculator className="w-5 h-5 text-purple-600 dark:text-purple-400" />

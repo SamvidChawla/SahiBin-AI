@@ -93,13 +93,13 @@ export function MissionStatement() {
                 <div className="grid grid-cols-2 gap-4 mt-12">
                   <div className="text-center p-4 bg-gradient-to-br from-sky-50 to-cyan-50 dark:from-sky-950/30 dark:to-cyan-950/30 rounded-2xl">
                     <p className="text-[32px] bg-gradient-to-r from-sky-600 to-cyan-600 dark:from-sky-400 dark:to-cyan-400 bg-clip-text text-transparent">
-                      10K+
+                      Many
                     </p>
                     <p className="text-[13px] text-slate-600 dark:text-slate-400">Active Users</p>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 rounded-2xl">
                     <p className="text-[32px] bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 bg-clip-text text-transparent">
-                      98%
+                      High
                     </p>
                     <p className="text-[13px] text-slate-600 dark:text-slate-400">Accuracy</p>
                   </div>
@@ -139,7 +139,7 @@ export function MissionStatement() {
                     {[
                       { icon: Zap, text: 'Instant AI-powered waste identification' },
                       { icon: Globe, text: 'Contributing to global sustainability goals' },
-                      { icon: Users, text: 'Join 10,000+ eco-conscious users' }
+                      { icon: Users, text: 'Join Other eco-conscious users' }
                     ].map((item, index) => (
                       <motion.div
                         key={index}
@@ -158,25 +158,28 @@ export function MissionStatement() {
                   </div>
 
                   {/* CTA Buttons */}
-                  <div className="flex flex-wrap gap-4">
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Button
-                        className="h-[56px] px-8 bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-700 hover:to-cyan-700 text-white rounded-[14px] shadow-xl shadow-sky-500/30 group"
-                      >
-                        Start Detecting
-                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </motion.div>
+<div className="flex flex-wrap gap-4">
+  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <Button
+      className="h-[56px] px-8 bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-700 hover:to-cyan-700 text-white rounded-[14px] shadow-xl shadow-sky-500/30 group"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    >
+      Start Detecting
+      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+    </Button>
+  </motion.div>
 
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Button
-                        variant="outline"
-                        className="h-[56px] px-8 border-2 border-slate-300 dark:border-slate-600 hover:border-sky-500 dark:hover:border-sky-500 rounded-[14px]"
-                      >
-                        Learn More
-                      </Button>
-                    </motion.div>
-                  </div>
+  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <Button
+      variant="outline"
+      className="h-[56px] px-8 border-2 border-slate-300 dark:border-slate-600 hover:border-sky-500 dark:hover:border-sky-500 rounded-[14px]"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    >
+      Learn More
+    </Button>
+  </motion.div>
+</div>
+
                 </motion.div>
               </div>
             </div>

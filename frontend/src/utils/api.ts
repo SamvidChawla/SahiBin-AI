@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "https://sahibin-ai.onrender.com";
+const API_URL = "https://sahibin-ai.onrender.com";
 
 export async function detectWaste(file: File) {
     const formData = new FormData();

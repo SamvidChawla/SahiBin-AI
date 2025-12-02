@@ -114,7 +114,7 @@ export function Footer() {
             {/* Left - Copyright */}
             <div className="text-center md:text-left">
               <p className="text-slate-400 text-[14px]">
-                © 2024 SahiBin
+                © 2025 SahiBin
               </p>
               <p className="text-slate-500 text-[13px] mt-1">
                 Revolutionizing Waste Management through AI
@@ -145,10 +145,8 @@ export function Footer() {
             <div className="text-center md:text-right">
               <div className="flex justify-center md:justify-end gap-2 mb-3">
                 {[
-                  { icon: Twitter, href: '#' },
-                  { icon: Github, href: '#' },
-                  { icon: Linkedin, href: '#' },
-                  { icon: Mail, href: '#' }
+                  
+                  { icon: Github, href: 'https://github.com/Aradhays07/SahiBin-AI' }
                 ].map((social, index) => (
                   <motion.a
                     key={index}
@@ -161,13 +159,11 @@ export function Footer() {
                   </motion.a>
                 ))}
               </div>
-              <div className="flex justify-center md:justify-end gap-4 text-[13px] text-slate-400">
-                <a href="#" className="hover:text-sky-400 transition-colors">Privacy</a>
-                <span>•</span>
-                <a href="#" className="hover:text-sky-400 transition-colors">Terms</a>
-                <span>•</span>
-                <a href="#" className="hover:text-sky-400 transition-colors">Contact</a>
-              </div>
+              <div className="text-[13px] text-slate-400 md:text-right break-words">
+  This is a personal project. Frontend hosted on Netlify, backend on Render. 
+  This is for demonstration purposes only. Refer to each service's policies.
+</div>
+
             </div>
           </div>
         </div>

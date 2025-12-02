@@ -25,9 +25,10 @@ interface DetectionResult {
 interface DetectionDetailsPageProps {
   result: DetectionResult;
   onTryAgain: () => void;
+  onTabChange: (tab: string) => void; 
 }
 
-export function DetectionDetailsPage({ result, onTryAgain }: DetectionDetailsPageProps) {
+export function DetectionDetailsPage({ result, onTryAgain , onTabChange }: DetectionDetailsPageProps) {
   const categoryData = wasteCategories[result.wasteType];
   
   if (!categoryData) {
@@ -314,6 +315,7 @@ export function DetectionDetailsPage({ result, onTryAgain }: DetectionDetailsPag
               🔄 Scan Another Item
             </Button>
             <Button
+              onClick={() => onTabChange("centers")}
               className="h-[56px] px-10 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-[12px] shadow-lg"
             >
               📍 Find Collection Centers
