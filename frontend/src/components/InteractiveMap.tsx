@@ -187,7 +187,7 @@ export function InteractiveMap({ centers, userLocation, searchRadius, onCenterCl
           </motion.div>
 
           {/* Collection Center Markers */}
-          {centers.map((center) => {
+          {centers.map((center ,index) => {
             const pos = latLngToPixel(center.lat, center.lng, 800, 500);
             
             return (
@@ -291,7 +291,7 @@ export function InteractiveMap({ centers, userLocation, searchRadius, onCenterCl
 
                   <div className="flex items-center gap-3 pt-1">
                     <span className="text-emerald-600 dark:text-emerald-400 font-medium text-sm">
-                      📍 {selectedCenter.distance} away
+                      📍 {selectedCenter.distance} km away
                     </span>
                   </div>
                 </div>

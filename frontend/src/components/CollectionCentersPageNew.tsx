@@ -143,7 +143,7 @@ export function CollectionCentersPageNew() {
                   <motion.div key={center.id} id={`center-${center.id}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 + index * 0.05 }} className="bg-white dark:bg-white rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-all cursor-pointer" onClick={() => console.log('Center card clicked:', center)}>
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">{center.id}</div>
+                        <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">{index + 1}</div>
                         <h5 className="text-[14px] text-slate-900 dark:text-white font-medium">{center.name}</h5>
                       </div>
                       <div className="flex items-center gap-1 text-amber-500">
@@ -155,13 +155,19 @@ export function CollectionCentersPageNew() {
                     <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 mb-3">
                       <div className="flex items-center gap-1.5">
                         <Navigation className="w-3 h-3" />
-                        <span className="text-emerald-600 dark:text-emerald-400 font-medium">{center.distance}</span>
+                        <span className="text-emerald-600 dark:text-emerald-400 font-medium">{center.distance} km</span>
                       </div>
 
                       <div className="flex items-center gap-1.5">
-                        <Clock className="w-3 h-3" />
-                        <span className="truncate">{center.hours?.split(",")[0] || "Hours not available"}</span>
-                      </div>
+  <Phone className="w-3 h-3" />
+  <a
+    href={`tel:${center.phone}`}
+    className="truncate text-sky-600 dark:text-sky-400 hover:underline"
+  >
+    {center.phone || "No phone available"}
+  </a>
+</div>
+
                     </div>
 
                     {/* Materials badges — safe when API doesn't provide acceptedMaterials */}
