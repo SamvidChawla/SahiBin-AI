@@ -111,10 +111,12 @@ export function CollectionCentersPageNew() {
 
   // Filter centers based on selected material
   const centers = selectedMaterial === 'all' 
-    ? allCenters 
-    : allCenters.filter(center => 
-        center.acceptedMaterials.some(m => m.toLowerCase() === selectedMaterial.toLowerCase())
-      );
+  ? allCenters 
+  : allCenters.filter(center => 
+      (center.acceptedMaterials || []).some(
+        m => m.toLowerCase() === selectedMaterial.toLowerCase()
+      )
+    );
 
   const materialColors: Record<string, string> = {
     Plastic: 'bg-purple-100 text-purple-700 dark:bg-purple-950/50 dark:text-purple-400',
