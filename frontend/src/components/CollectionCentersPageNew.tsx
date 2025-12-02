@@ -159,9 +159,15 @@ export function CollectionCentersPageNew() {
                       </div>
 
                       <div className="flex items-center gap-1.5">
-                        <Clock className="w-3 h-3" />
-                        <span className="truncate">{center.hours?.split(",")[0] || "Hours not available"}</span>
-                      </div>
+  <Phone className="w-3 h-3" />
+  <a
+    href={`tel:${center.phone}`}
+    className="truncate text-sky-600 dark:text-sky-400 hover:underline"
+  >
+    {center.phone || "No phone available"}
+  </a>
+</div>
+
                     </div>
 
                     {/* Materials badges — safe when API doesn't provide acceptedMaterials */}
