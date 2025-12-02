@@ -209,7 +209,7 @@ export function InteractiveMap({ centers, userLocation, searchRadius, onCenterCl
                 <div className="relative">
                   {/* Pin Body */}
                   <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg border-3 border-white">
-                    {center.id}
+                    {center.name.length > 10 ? center.name.slice(0, 10) + "…" : center.name}
                   </div>
                   {/* Pin Point */}
                   <div className="absolute left-1/2 -bottom-1 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-cyan-500 transform -translate-x-1/2" />
