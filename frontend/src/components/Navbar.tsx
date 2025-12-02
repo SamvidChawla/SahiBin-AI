@@ -45,28 +45,37 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
           </div>
         </motion.div>
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-2 bg-slate-50/50 dark:bg-slate-800/50 rounded-full p-1.5 backdrop-blur-sm">
-          {[
-            { label: 'Camera', value: 'home' },
-            { label: 'Upload', value: 'home' },
-            { label: 'Dashboard', value: 'dashboard' }
-          ].map((item) => (
-            <motion.button
-              key={item.label}
-              onClick={() => onNavigate(item.value)}
-              className={`px-6 py-2 rounded-full text-[15px] transition-all duration-300 ${
-                currentPage === item.value
-                  ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-lg shadow-sky-500/30'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-white/50 dark:hover:bg-slate-700/50'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {item.label}
-            </motion.button>
-          ))}
-        </div>
+       {/* Navigation Links */}
+<div className="hidden md:flex items-center gap-2 bg-slate-50/50 dark:bg-slate-800/50 rounded-full p-1.5 backdrop-blur-sm">
+  {[
+    { label: 'Camera', value: 'home' },
+    { label: 'Upload', value: 'home' },
+    { label: 'Dashboard', value: 'dashboard' }
+  ].map((item) => (
+    <motion.button
+      key={item.label}
+      onClick={() => {
+        onNavigate(item.value); // navigate first
+        if (item.value === 'home') {
+          // small delay to ensure DOM updates
+          setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }, 50);
+        }
+      }}
+      className={`px-6 py-2 rounded-full text-[15px] transition-all duration-300 ${
+        currentPage === item.value
+          ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-lg shadow-sky-500/30'
+          : 'text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-white/50 dark:hover:bg-slate-700/50'
+      }`}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      {item.label}
+    </motion.button>
+  ))}
+</div>
+
 
         {/* Dark Mode Toggle */}
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

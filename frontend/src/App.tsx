@@ -108,11 +108,18 @@ export default function App() {
                 <DetectionDetailsPage 
                   result={detectionResult}
                   onTryAgain={handleTryAgain}
+                  onTabChange={setActiveTab}
                 />
               )}
               
               {activeTab === 'disposal' && (
-                <DisposalGuideTabPage wasteType={detectionResult.wasteType} />
+                <DisposalGuideTabPage 
+                wasteType={detectionResult.wasteType}
+                onNavigateTab={setActiveTab} // switches tabs
+                onScrollToSection={(sectionId) => {
+                  const el = document.getElementById(sectionId);
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}/>
               )}
               
               {activeTab === 'analytics' && (
