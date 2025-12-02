@@ -62,8 +62,8 @@ export function CollectionCentersPageNew() {
     <div className="py-8 px-6">
       <div className="max-w-[1400px] mx-auto space-y-6">
         {/* Search Section */}
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="bg-white dark:bg-slate-800 rounded-[20px] shadow-lg p-8">
-          <h2 className="text-[28px] text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="bg-white dark:bg-white rounded-[20px] shadow-lg p-8">
+          <h2 className="text-[28px] text-slate-900 dark:text-slate-900 mb-6 flex items-center gap-2">
             <MapPin className="w-7 h-7 text-sky-600 dark:text-sky-400" />
             Find Nearby Collection Centers
           </h2>
@@ -113,7 +113,7 @@ export function CollectionCentersPageNew() {
         </motion.div>
 
         {/* Map and Side Panel */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-white dark:bg-slate-800 rounded-[20px] shadow-lg overflow-hidden">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-white dark:bg-white rounded-[20px] shadow-lg overflow-hidden">
           <div className="p-8 pb-6 border-b border-slate-200 dark:border-slate-700">
             <div className="flex items-center justify-between">
               <h3 className="text-[20px] text-slate-900 dark:text-white">Interactive Collection Centers Map</h3>
@@ -140,7 +140,7 @@ export function CollectionCentersPageNew() {
 
               <div className="space-y-4">
                 {centers.map((center, index) => (
-                  <motion.div key={center.id} id={`center-${center.id}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 + index * 0.05 }} className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-all cursor-pointer" onClick={() => console.log('Center card clicked:', center)}>
+                  <motion.div key={center.id} id={`center-${center.id}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 + index * 0.05 }} className="bg-white dark:bg-white rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-all cursor-pointer" onClick={() => console.log('Center card clicked:', center)}>
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">{center.id}</div>
