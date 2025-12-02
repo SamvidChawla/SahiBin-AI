@@ -160,7 +160,7 @@ export function CollectionCentersPageNew() {
 
                       <div className="flex items-center gap-1.5">
                         <Clock className="w-3 h-3" />
-                        <span className="truncate">{center.hours?.split(",")[0] || "Hours not available"}</span>
+                        <span className="truncate">{center.hours?.split(",")[0] || "Hours not available"} km</span>
                       </div>
                     </div>
 
