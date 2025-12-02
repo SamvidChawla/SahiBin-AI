@@ -192,7 +192,7 @@ export function InteractiveMap({ centers, userLocation, searchRadius, onCenterCl
             
             return (
               <motion.div
-                key={center.id}
+                key={index}
                 className="absolute z-20 cursor-pointer"
                 style={{
                   left: `${pos.x}px`,
@@ -201,7 +201,7 @@ export function InteractiveMap({ centers, userLocation, searchRadius, onCenterCl
                 }}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: center.id * 0.1 }}
+                transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.15 }}
                 onClick={() => handleMarkerClick(center)}
               >
