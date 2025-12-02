@@ -187,7 +187,7 @@ export function InteractiveMap({ centers, userLocation, searchRadius, onCenterCl
           </motion.div>
 
           {/* Collection Center Markers */}
-          {centers.map((center) => {
+          {centers.map((center ,index) => {
             const pos = latLngToPixel(center.lat, center.lng, 800, 500);
             
             return (
